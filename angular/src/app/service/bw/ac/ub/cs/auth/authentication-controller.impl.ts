@@ -11,20 +11,20 @@ export class AuthenticationControllerImpl extends AuthenticationController {
         super(injector);
     }
 
-    public signin(username: string, password: string): Observable<ResponseEntity> {
+    public signin(username: string, password: string): Observable<?> {
 
         let formData: any = new FormData();
         formData.append("username", username)
         formData.append("password", password)
-        return this.http.post<ResponseEntity>(this.path + "/signin" + "/", formData);
+        return this.http.post<?>(this.path + '/signin', formData);
 
     }
 
-    public signout(refreshToken: string): Observable<ResponseEntity> {
+    public signout(refreshToken: string): Observable<?> {
 
         let formData: any = new FormData();
         formData = refreshToken;
-        return this.http.post<ResponseEntity>(this.path + "/signout" + "/", formData);
+        return this.http.post<?>(this.path + '/signout', formData);
 
     }
 

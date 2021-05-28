@@ -25,7 +25,12 @@ import { ShellModule } from './shell/shell.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { SearchProgrammesModule } from '@app/view/web/programme/search-programmes.module';
+import { ProgrammeModule } from '@app/view/web/programme/programme.module';
+import { EditProgrammeModule } from '@app/view/web/programme/edit-programme.module';
+import { ProgrammeControllerImpl } from '@app/controller/web/programme/programme-controller.impl';
 
+import { ProgrammeRestControllerImpl } from '@app/service/bw/ac/ub/cs/programme/service/programme-rest-controller.impl';
 
 @NgModule({
     declarations: [
@@ -44,10 +49,15 @@ import { AppComponent } from './app.component';
         ShellModule,
         HomeModule,
         AppRoutingModule, // must be imported as the last module as it contains the fallback route
+        SearchProgrammesModule,
+        ProgrammeModule,
+        EditProgrammeModule,
     ],
     exports: [
     ],
     providers: [
+        ProgrammeRestControllerImpl,
+        ProgrammeControllerImpl,
     ],
     bootstrap: [AppComponent]
 })

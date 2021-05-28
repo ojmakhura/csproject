@@ -7,6 +7,11 @@ package bw.ac.ub.cs.programme.service;
 
 import bw.ac.ub.cs.programme.vo.ProgrammeVO;
 import java.util.Collection;
+import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,24 +21,79 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin()
 public class ProgrammeRestControllerImpl extends ProgrammeRestControllerBase {
 
+    protected static Logger log = LoggerFactory.getLogger(ProgrammeRestControllerImpl.class);
+
+
     @Override
-    public void handleDelete(Long id) {
+    public ResponseEntity<Boolean> handleDelete(Long id) {
+
+        this.programmeService.delete(id);
+        ProgrammeVO p = this.programmeService.findById(id);
+        Optional<Boolean> data = Optional.of(p != null && p.getId() != null); // TODO: Add custom code here
+        ResponseEntity<Boolean> response;
+
+        if(data.isPresent()) {
+            response = ResponseEntity.status(HttpStatus.OK).body(data.get());
+        } else {
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        return response;
     }
 
     @Override
-    public ProgrammeVO handleFindById(Long id) {
+    public ResponseEntity<ProgrammeVO> handleFindById(Long id) {
+        Optional<ProgrammeVO> data = Optional.of(this.programmeService.findById(id)); // TODO: Add custom code here
+        ResponseEntity<ProgrammeVO> response;
+
+        if(data.isPresent()) {
+            response = ResponseEntity.status(HttpStatus.OK).body(data.get());
+        } else {
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        return response;
     }
 
     @Override
-    public Collection<ProgrammeVO> handleLoadAll() {
+    public ResponseEntity<Collection<ProgrammeVO>> handleLoadAll() {
+        Optional<Collection<ProgrammeVO>> data = Optional.of(this.programmeService.loadAll()); // TODO: Add custom code here
+        ResponseEntity<Collection<ProgrammeVO>> response;
+
+        if(data.isPresent()) {
+            response = ResponseEntity.status(HttpStatus.OK).body(data.get());
+        } else {
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        return response;
     }
 
     @Override
-    public ProgrammeVO handleSave(ProgrammeVO programmeVO) {
+    public ResponseEntity<ProgrammeVO> handleSave(ProgrammeVO programmeVO) {
+        Optional<ProgrammeVO> data = Optional.of(this.programmeService.save(programmeVO)); // TODO: Add custom code here
+        ResponseEntity<ProgrammeVO> response;
+
+        if(data.isPresent()) {
+            response = ResponseEntity.status(HttpStatus.OK).body(data.get());
+        } else {
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        return response;
     }
 
     @Override
-    public ProgrammeVO handleSearch(String code, String name) {
-    }
+    public ResponseEntity<Collection<ProgrammeVO>> handleSearch(String code, String name) {
+        Optional<Collection<ProgrammeVO>> data = Optional.of(this.programmeService.search(code, name)); // TODO: Add custom code here
+        ResponseEntity<Collection<ProgrammeVO>> response;
 
+        if(data.isPresent()) {
+            response = ResponseEntity.status(HttpStatus.OK).body(data.get());
+        } else {
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        return response;
+    }
 }

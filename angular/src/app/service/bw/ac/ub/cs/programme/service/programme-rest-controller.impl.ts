@@ -3,7 +3,7 @@ import { Injectable, Injector } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ProgrammeRestController } from '@app/service/bw/ac/ub/cs/programme/service/programme-rest-controller';
-import { ProgrammeVO } from '@app/${import.filePath}';
+import { ProgrammeVO } from '@app/model/bw/ac/ub/cs/programme/vo/programme-vo';
 
 @Injectable()
 export class ProgrammeRestControllerImpl extends ProgrammeRestController {
@@ -12,21 +12,21 @@ export class ProgrammeRestControllerImpl extends ProgrammeRestController {
         super(injector);
     }
 
-    public delete(id: number): Observable<void> {
+    public delete(id: number): Observable<boolean> {
 
-        return this.http.delete<void>(this.path + "/" + "/id/" + id + "/");
+        return this.http.delete<boolean>(this.path + '/' + id);
 
     }
 
     public findById(id: number): Observable<ProgrammeVO> {
 
-        return this.http.get<ProgrammeVO>(this.path + "/" + "/id/" + id + "/");
+        return this.http.get<ProgrammeVO>(this.path + '/' + id);
 
     }
 
     public loadAll(): Observable<ProgrammeVO[]> {
 
-        return this.http.get<ProgrammeVO[]>(this.path + "/" + "/");
+        return this.http.get<ProgrammeVO[]>(this.path);
 
     }
 
@@ -34,16 +34,16 @@ export class ProgrammeRestControllerImpl extends ProgrammeRestController {
 
         let formData: any = new FormData();
         formData = programmeVO;
-        return this.http.post<ProgrammeVO>(this.path + "/" + "/", formData);
+        return this.http.post<ProgrammeVO>(this.path, formData);
 
     }
 
-    public search(code: string, name: string): Observable<ProgrammeVO> {
+    public search(code: string, name: string): Observable<ProgrammeVO[]> {
 
         let formData: any = new FormData();
         formData.append("code", code)
         formData.append("name", name)
-        return this.http.post<ProgrammeVO>(this.path + "/search" + "/", formData);
+        return this.http.post<ProgrammeVO[]>(this.path + '/search', formData);
 
     }
 

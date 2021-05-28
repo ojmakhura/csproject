@@ -8,8 +8,14 @@
  */
 package bw.ac.ub.cs.programme.service;
 
+import bw.ac.ub.cs.Search;
+import bw.ac.ub.cs.SearchParameter;
+import bw.ac.ub.cs.programme.Programme;
+import bw.ac.ub.cs.programme.ProgrammeDao;
 import bw.ac.ub.cs.programme.vo.ProgrammeVO;
 import java.util.Collection;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,8 +36,13 @@ public class ProgrammeServiceImpl
     protected  ProgrammeVO handleSave(ProgrammeVO programmeVO)
         throws Exception
     {
-        // TODO implement protected  ProgrammeVO handleSave(ProgrammeVO programmeVO)
-        throw new UnsupportedOperationException("bw.ac.ub.cs.programme.service.ProgrammeService.handleSave(ProgrammeVO programmeVO) Not implemented!");
+        if(programmeVO == null) {
+            return null;
+        }
+
+        Programme programme = getProgrammeDao().programmeVOToEntity(programmeVO);
+        return (ProgrammeVO) this.getProgrammeDao().create(ProgrammeDao.TRANSFORM_PROGRAMMEVO, programme);
+
     }
 
     /**
@@ -41,8 +52,11 @@ public class ProgrammeServiceImpl
     protected  ProgrammeVO handleFindById(Long id)
         throws Exception
     {
-        // TODO implement protected  ProgrammeVO handleFindById(Long id)
-        throw new UnsupportedOperationException("bw.ac.ub.cs.programme.service.ProgrammeService.handleFindById(Long id) Not implemented!");
+        if(id == null) {
+            return null;
+        }
+
+        return (ProgrammeVO) this.getProgrammeDao().load(ProgrammeDao.TRANSFORM_PROGRAMMEVO, id);
     }
 
     /**
@@ -52,19 +66,30 @@ public class ProgrammeServiceImpl
     protected  Collection<ProgrammeVO> handleLoadAll()
         throws Exception
     {
-        // TODO implement protected  Collection<ProgrammeVO> handleLoadAll()
-        throw new UnsupportedOperationException("bw.ac.ub.cs.programme.service.ProgrammeService.handleLoadAll() Not implemented!");
+        return (Collection<ProgrammeVO>) getProgrammeDao().loadAll(ProgrammeDao.TRANSFORM_PROGRAMMEVO);
     }
 
     /**
      * @see bw.ac.ub.cs.programme.service.ProgrammeService#search(String, String)
      */
     @Override
-    protected  ProgrammeVO handleSearch(String code, String name)
+    protected  Collection<ProgrammeVO> handleSearch(String code, String name)
         throws Exception
     {
-        // TODO implement protected  ProgrammeVO handleSearch(String code, String name)
-        throw new UnsupportedOperationException("bw.ac.ub.cs.programme.service.ProgrammeService.handleSearch(String code, String name) Not implemented!");
+        Search search = new Search();
+
+        if(StringUtils.isNotBlank(code)) {
+            SearchParameter param = new SearchParameter("code", code, SearchParameter.LIKE_COMPARATOR);
+            search.addSearchParameter(param);
+        }
+
+        if(StringUtils.isNotBlank(name)) {
+            SearchParameter param = new SearchParameter("name", name, SearchParameter.LIKE_COMPARATOR);
+            search.addSearchParameter(param);
+        }
+
+        return (Collection<ProgrammeVO>) this.getProgrammeDao().search(ProgrammeDao.TRANSFORM_PROGRAMMEVO, search);
+
     }
 
     /**
@@ -74,8 +99,9 @@ public class ProgrammeServiceImpl
     protected  void handleDelete(Long id)
         throws Exception
     {
-        // TODO implement protected  void handleDelete(Long id)
-        throw new UnsupportedOperationException("bw.ac.ub.cs.programme.service.ProgrammeService.handleDelete(Long id) Not implemented!");
+        if(id != null) {
+            this.getProgrammeDao().remove(id);
+        }
     }
 
 }

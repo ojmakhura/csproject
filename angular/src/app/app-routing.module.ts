@@ -15,6 +15,18 @@ const routes: Routes = [
       path: 'about',
       loadChildren: async () => (await import('./about/about.module')).AboutModule
     },
+    {
+      path: 'searchprogrammes', 
+      loadChildren: async () => (await import('./view/web/programme/search-programmes.module')).SearchProgrammesModule
+    },
+    {
+      path: 'editprogramme', 
+      loadChildren: async () => (await import('./view/web/programme/edit-programme.module')).EditProgrammeModule
+    },
+    {
+      path: 'programme', 
+      loadChildren: async () => (await import('./view/web/programme/programme.module')).ProgrammeModule
+    },
   ]),
   // Fallback when no prior route is matched
   { 

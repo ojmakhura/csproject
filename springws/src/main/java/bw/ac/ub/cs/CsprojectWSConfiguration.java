@@ -7,12 +7,12 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
-
 @ComponentScan(basePackages = "bw.ac.ub.cs")
 @EnableAutoConfiguration(exclude = { //
         DataSourceAutoConfiguration.class, //
@@ -35,5 +35,10 @@ public class CsprojectWSConfiguration {
 		confSource.registerCorsConfiguration("/**", config);
 		return new CorsFilter(confSource);
 	}
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
 }
