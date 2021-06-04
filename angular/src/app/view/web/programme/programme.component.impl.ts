@@ -4,56 +4,43 @@ import { ProgrammeComponent } from '@app/view/web/programme/programme.component'
 import { ProgrammeEditForm } from '@app/view/web/programme/programme.component';
 import { ProgrammeSearchForm } from '@app/view/web/programme/programme.component';
 import { ProgrammeDeleteForm } from '@app/view/web/programme/programme.component';
+import { ProgrammeVarsForm } from '@app/view/web/programme/programme.component';
 
 @Component({
   selector: 'programme',
   templateUrl: './programme.component.html',
-  styleUrls: ['./programme.component.scss']
+  styleUrls: ['./programme.component.scss'],
 })
 export class ProgrammeComponentImpl extends ProgrammeComponent {
+  constructor(private injector: Injector) {
+    super(injector);
+  }
 
-    constructor(private injector: Injector) {
-        super(injector);
-    }
+  beforeOnInit() {}
 
-    beforeOnInit(){
-    }
-	
-    afterOnInit() {
-    }
+  afterOnInit() {}
 
-    doNgAfterViewInit() {
-      
-    }
+  doNgAfterViewInit() {}
 
-    handleFormChanges(change: any) {
-    }
+  handleFormChanges(change: any) {}
 
-    afterSetProgrammeEditForm(form: ProgrammeEditForm): void {
-    }
+  afterSetProgrammeEditForm(form: ProgrammeEditForm): void {}
 
-    afterProgrammeEditEvent(form: ProgrammeEditForm) {    
-    }
+  afterProgrammeEdit(form: ProgrammeEditForm) {}
 
-    beforeProgrammeEditEvent(form: ProgrammeEditForm) {
-    }
+  beforeProgrammeEdit(form: ProgrammeEditForm) {}
 
-    afterSetProgrammeSearchForm(form: ProgrammeSearchForm): void {
-    }
+  afterSetProgrammeSearchForm(form: ProgrammeSearchForm): void {}
 
-    afterProgrammeSearchEvent(form: ProgrammeSearchForm) {    
-    }
+  afterProgrammeSearch(form: ProgrammeSearchForm) {}
 
-    beforeProgrammeSearchEvent(form: ProgrammeSearchForm) {
-    }
+  beforeProgrammeSearch(form: ProgrammeSearchForm) {}
 
-    afterSetProgrammeDeleteForm(form: ProgrammeDeleteForm): void {
-    }
+  afterSetProgrammeDeleteForm(form: ProgrammeDeleteForm): void {}
 
-    afterProgrammeDeleteEvent(form: ProgrammeDeleteForm) {    
-    }
+  afterProgrammeDelete(form: ProgrammeDeleteForm) {}
 
-    beforeProgrammeDeleteEvent(form: ProgrammeDeleteForm) {
-    }
+  beforeProgrammeDelete(form: ProgrammeDeleteForm) {}
 
+  afterSetProgrammeVarsForm(form: ProgrammeVarsForm): void {}
 }

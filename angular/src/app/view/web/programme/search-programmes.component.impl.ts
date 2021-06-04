@@ -2,39 +2,39 @@
 import { Component, Injector } from '@angular/core';
 import { SearchProgrammesComponent } from '@app/view/web/programme/search-programmes.component';
 import { SearchProgrammesSearchForm } from '@app/view/web/programme/search-programmes.component';
+import { SearchProgrammesProgrammeForm } from '@app/view/web/programme/search-programmes.component';
 
 @Component({
   selector: 'search-programmes',
   templateUrl: './search-programmes.component.html',
-  styleUrls: ['./search-programmes.component.scss']
+  styleUrls: ['./search-programmes.component.scss'],
 })
 export class SearchProgrammesComponentImpl extends SearchProgrammesComponent {
+  constructor(private injector: Injector) {
+    super(injector);
+  }
 
-    constructor(private injector: Injector) {
-        super(injector);
-    }
+  beforeOnInit() {}
 
-    beforeOnInit(){
-    }
-	
-    afterOnInit() {
-        this.addProgrammesDummyData();
-    }
+  afterOnInit() {
+    this.programmeRestController.loadAll().subscribe((programmes) => {
+      this.setProgrammes(programmes);
+    });
+  }
 
-    doNgAfterViewInit() {
-      
-    }
+  doNgAfterViewInit() {}
 
-    handleFormChanges(change: any) {
-    }
+  handleFormChanges(change: any) {}
 
-    afterSetSearchProgrammesSearchForm(form: SearchProgrammesSearchForm): void {
-    }
+  afterSetSearchProgrammesSearchForm(form: SearchProgrammesSearchForm): void {}
 
-    afterSearchProgrammesSearchEvent(form: SearchProgrammesSearchForm) {    
-    }
+  afterSearchProgrammesSearch(form: SearchProgrammesSearchForm) {}
 
-    beforeSearchProgrammesSearchEvent(form: SearchProgrammesSearchForm) {
-    }
+  beforeSearchProgrammesSearch(form: SearchProgrammesSearchForm) {}
 
+  afterSetSearchProgrammesProgrammeForm(form: SearchProgrammesProgrammeForm): void {}
+
+  afterSearchProgrammesProgramme(form: SearchProgrammesProgrammeForm) {}
+
+  beforeSearchProgrammesProgramme(form: SearchProgrammesProgrammeForm) {}
 }

@@ -4,59 +4,47 @@ import { EditProgrammeComponent } from '@app/view/web/programme/edit-programme.c
 import { EditProgrammeSearchForm } from '@app/view/web/programme/edit-programme.component';
 import { EditProgrammeSaveForm } from '@app/view/web/programme/edit-programme.component';
 import { EditProgrammeNewForm } from '@app/view/web/programme/edit-programme.component';
-import { EditProgrammeVarsForm } from '@app/view/web/programme/edit-programme.component';
 
 @Component({
   selector: 'edit-programme',
   templateUrl: './edit-programme.component.html',
-  styleUrls: ['./edit-programme.component.scss']
+  styleUrls: ['./edit-programme.component.scss'],
 })
 export class EditProgrammeComponentImpl extends EditProgrammeComponent {
+  constructor(private injector: Injector) {
+    super(injector);
+  }
 
-    constructor(private injector: Injector) {
-        super(injector);
-    }
+  beforeOnInit() {}
 
-    beforeOnInit(){
+  afterOnInit() {
+    if (this.programmeController?.pageVariables?.id) {
+      const id: number = this.programmeController?.pageVariables?.id;
+      this.programmeRestController.findById(id).subscribe((programme) => {
+        this.setEditProgrammeSaveForm({ programme });
+      });
     }
-	
-    afterOnInit() {
-    }
+  }
 
-    doNgAfterViewInit() {
-      
-    }
+  doNgAfterViewInit() {}
 
-    handleFormChanges(change: any) {
-    }
+  handleFormChanges(change: any) {}
 
-    afterSetEditProgrammeSearchForm(form: EditProgrammeSearchForm): void {
-    }
+  afterSetEditProgrammeSearchForm(form: EditProgrammeSearchForm): void {}
 
-    afterEditProgrammeSearchEvent(form: EditProgrammeSearchForm) {    
-    }
+  afterEditProgrammeSearch(form: EditProgrammeSearchForm) {}
 
-    beforeEditProgrammeSearchEvent(form: EditProgrammeSearchForm) {
-    }
+  beforeEditProgrammeSearch(form: EditProgrammeSearchForm) {}
 
-    afterSetEditProgrammeSaveForm(form: EditProgrammeSaveForm): void {
-    }
+  afterSetEditProgrammeSaveForm(form: EditProgrammeSaveForm): void {}
 
-    afterEditProgrammeSaveEvent(form: EditProgrammeSaveForm) {    
-    }
+  afterEditProgrammeSave(form: EditProgrammeSaveForm) {}
 
-    beforeEditProgrammeSaveEvent(form: EditProgrammeSaveForm) {
-    }
+  beforeEditProgrammeSave(form: EditProgrammeSaveForm) {}
 
-    afterSetEditProgrammeNewForm(form: EditProgrammeNewForm): void {
-    }
+  afterSetEditProgrammeNewForm(form: EditProgrammeNewForm): void {}
 
-    afterEditProgrammeNewEvent(form: EditProgrammeNewForm) {    
-    }
+  afterEditProgrammeNew(form: EditProgrammeNewForm) {}
 
-    beforeEditProgrammeNewEvent(form: EditProgrammeNewForm) {
-    }
-
-    afterSetEditProgrammeVarsForm(form: EditProgrammeVarsForm): void {
-    }
+  beforeEditProgrammeNew(form: EditProgrammeNewForm) {}
 }
