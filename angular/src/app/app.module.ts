@@ -25,6 +25,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProgrammesModule } from '@app/view/web/programme/programmes.module';
 import { ProgrammeControllerImpl } from '@app/controller/web/programme/programme-controller.impl';
+import { UseCaseScope } from '@app/utils/use-case-scope';
 import { ProgrammeRestControllerImpl } from '@app/service/bw/ac/ub/cs/programme/service/programme-rest-controller.impl';
 
 @NgModule({
@@ -45,7 +46,7 @@ import { ProgrammeRestControllerImpl } from '@app/service/bw/ac/ub/cs/programme/
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
   ],
   exports: [],
-  providers: [ProgrammeRestControllerImpl, ProgrammeControllerImpl],
+  providers: [UseCaseScope, ProgrammeRestControllerImpl, ProgrammeControllerImpl],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
